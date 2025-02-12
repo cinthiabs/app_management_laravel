@@ -34,6 +34,14 @@ Route::get('/sobrenos', [SobreNosController::class, 'sobreNos']);
 
 Route::get('/contato', [ContatoController::class, 'contato']);
 
-Route::get('/contato/{nome}/{categoria}/{assunto}/{mensagem}', function(string $nome, string $categoria, string $assunto, string $mensagem){    
+/*
+Lidando com parâmetros opcionais
+Route::get('/contato/{nome}/{categoria}/{assunto}/{mensagem?}', function(string $nome, string $categoria, string $assunto, string $mensagem = null){    
     echo "Estamos aqui: $nome - $categoria - $assunto - $mensagem";
 });
+*/
+
+//expressão regular (where) para limitar o tipo de dado que a rota aceita
+Route::get('/contato/{nome}/{categoria_id}', function(string $nome, int $categoria_id){    
+    echo "Estamos aqui: $nome - $categoria_id ";
+})->where('categoria_id', '[0-9]+') ->where('nome', '[A-Za-z]+');
