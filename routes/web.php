@@ -27,13 +27,41 @@ Route::get('/contato', function () {
     return 'Contato';
 });
 
+se refere a um apelido da rota = name('site.index');
 */
-Route::get('/', [PrincipalController::class, 'principal']);
+Route::get('/', [PrincipalController::class, 'principal'])->name('site.index');
 
-Route::get('/sobrenos', [SobreNosController::class, 'sobreNos']);
+Route::get('/sobrenos', [SobreNosController::class, 'sobreNos'])->name('site.sobrenos');
 
-Route::get('/contato', [ContatoController::class, 'contato']);
+Route::get('/contato', [ContatoController::class, 'contato'])->name('site.contato');
 
+Route::get('/login',function() {
+    return 'Login';
+})->name('site.login');
+
+
+Route::prefix('/app')->group(function () {
+    Route::get('/clientes', fn () => 'Clientes')->name('app.clientes');
+    Route::get('/fornecedores', fn () => 'Fornecedores')->name('app.fornecedores');
+    Route::get('/produtos', fn () => 'Produtos')->name('app.produtos');
+});
+
+
+Route::get('/rota1', function () {
+    echo 'Rota 1';
+})->name('site.rota1');
+
+
+//implementando redirecionamento de rotas
+Route::get('/rota2', function () {
+    echo 'Rota 2';
+    return redirect()->route('site.rota1');
+})->name('site.rota2');
+   
+//implementando redirecionamento de rotas para contigência de rotas inexistentes
+route::fallback(function(){
+    echo 'A rota acessada não existe. <a href="'.route('site.index').'">Clique aqui</a> para ir para a página inicial';
+});
 /*
 Lidando com parâmetros opcionais
 Route::get('/contato/{nome}/{categoria}/{assunto}/{mensagem?}', function(string $nome, string $categoria, string $assunto, string $mensagem = null){    
@@ -41,7 +69,7 @@ Route::get('/contato/{nome}/{categoria}/{assunto}/{mensagem?}', function(string 
 });
 */
 
-//expressão regular (where) para limitar o tipo de dado que a rota aceita
-Route::get('/contato/{nome}/{categoria_id}', function(string $nome, int $categoria_id){    
-    echo "Estamos aqui: $nome - $categoria_id ";
-})->where('categoria_id', '[0-9]+') ->where('nome', '[A-Za-z]+');
+//Expressão regular (where) para limitar o tipo de dado que a rota aceita
+//Route::get('/contato/{nome}/{categoria_id}', function(string $nome, int $categoria_id){    
+//    echo "Estamos aqui: $nome - $categoria_id ";
+//})->where('categoria_id', '[0-9]+') ->where('nome', '[A-Za-z]+');
