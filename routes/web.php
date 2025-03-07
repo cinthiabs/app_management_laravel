@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PrincipalController;
 use App\Http\Controllers\SobreNosController;
 use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\TesteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,17 +47,15 @@ Route::prefix('/app')->group(function () {
     Route::get('/produtos', fn () => 'Produtos')->name('app.produtos');
 });
 
+Route::get('/teste/{p1}/{p2}', [TesteController::class, 'teste'])->name('site.teste');
 
-Route::get('/rota1', function () {
-    echo 'Rota 1';
-})->name('site.rota1');
 
 
 //implementando redirecionamento de rotas
-Route::get('/rota2', function () {
-    echo 'Rota 2';
-    return redirect()->route('site.rota1');
-})->name('site.rota2');
+//Route::get('/rota2', function () {
+//    echo 'Rota 2';
+//    return redirect()->route('site.rota1');
+//})->name('site.rota2');
    
 //implementando redirecionamento de rotas para contigência de rotas inexistentes
 route::fallback(function(){
