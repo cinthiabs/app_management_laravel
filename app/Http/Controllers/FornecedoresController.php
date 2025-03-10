@@ -13,7 +13,17 @@ class FornecedoresController extends Controller
                 'status' => 'S',
                 'cnpj' => ''
                 ]
+            ,
+            1 =>[
+                'nome' => 'Fornecedor 2', 
+                'status' => 'N'
+                ]
             ];
+
+            //ternario = condicao ? se verdadeiro : se falso;
+            //$msg = isset($fornecedores[1]['cnpj'])? 'CNPJ informado' : 'CNPJ não informado';
+            //echo $msg;
+
         return view('app.fornecedor.index', compact('fornecedores'));
     }
 }
