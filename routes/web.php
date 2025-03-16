@@ -37,6 +37,9 @@ Route::get('/sobrenos', [SobreNosController::class, 'sobreNos'])->name('site.sob
 
 Route::get('/contato', [ContatoController::class, 'contato'])->name('site.contato');
 
+Route::post('/contato', [ContatoController::class, 'contato'])->name('site.contato');
+
+
 Route::get('/login',function() {
     return 'Login';
 })->name('site.login');
